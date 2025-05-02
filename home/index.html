@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard ‑ ‑ MJB Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Font & Icon eksternal -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
+  <!-- CSS lokal -->
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <!-- ================= INFO AKUN ================= -->
+    <div id="infoAkunSection">
+      <button class="back-btn" title="Kembali"><i class="fa fa-chevron-left"></i></button>
+
+      <!-- Sampul + Foto Profil -->
+      <div class="cover-box">
+        <img src="https://g.top4top.io/p_3402rp1b90.jpg" alt="Cover" class="cover-img" id="coverImg">
+        <img src="../uploads/default-avatar.png" alt="Foto Profil" class="profile-pic" id="profilePic">
+      </div>
+
+      <div class="welcome" id="welcomeTxt">User</div>
+      <div class="username" id="namaPengguna">@username</div>
+
+      <pre id="accountInfo" class="account-info"></pre>
+    </div>
+
+    <!-- ================ MAIN CONTENT ================ -->
+    <div id="mainContent">
+      <!-- Tombol Akun di Pojok Kanan Atas -->
+      <button class="akun-btn" title="Lihat Akun"><i class="fa fa-user-circle"></i></button>
+
+      <!-- Konten Tab -->
+      <div class="tab-content" id="tabContent">Coming Soon</div>
+    </div>
+  </div>
+
+  <!-- ================ MENU TAB BAWAH ================ -->
+  <div class="tab-menu">
+    <div class="tab-item active" data-tab="home"><i class="fa fa-house"></i>Home</div>
+    <div class="tab-item" data-tab="score"><i class="fa fa-star"></i>Score</div>
+    <div class="tab-item" data-tab="trx"><i class="fa fa-receipt"></i>Riwayat</div>
+    <div class="tab-item" data-tab="pinjam"><i class="fa fa-money-bill"></i>Paylater</div>
+  </div>
+
+  <!-- JavaScript lokal -->
+  <script src="js/dashboard.js"></script>
+<script src="js/voucher-handler.js"></script>
+</body>
+</html>

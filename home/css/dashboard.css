@@ -1,0 +1,198 @@
+/* ---------- GLOBAL ---------- */
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: url('https://j.top4top.io/p_3403a3w760.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 10);
+}
+
+/* ---------- INFO AKUN ---------- */
+#infoAkunSection {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #3498db;
+  z-index: 50;
+}
+
+/* --- Sampul + Avatar --- */
+.cover-box {
+  position: relative;
+  width: 100%;
+  height: 160px; /* tinggi banner */
+  margin-bottom: 60px; /* ruang ke bawah (avatar overlap) */
+  display: flex;
+  justify-content: center;
+}
+
+.cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.profile-pic {
+  position: absolute;
+  bottom: -40px; /* menggantung 40px di luar banner */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.20);
+  background: #f3f3f3;
+  z-index: 2;
+}
+
+/* Nama & welcome */
+.welcome {
+  font-size: 1.15em;
+  color: #3498db;
+  font-weight: 600;
+  margin-top: -20px;
+}
+
+.username {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #223;
+  margin-bottom: 8px;
+}
+
+/* Kotak ASCII akun */
+.account-info {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.35em;
+  background: #ffffffd1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #223;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  white-space: pre;
+  margin-top: 10px;
+}
+
+/* Tombol logout */
+.logout-btn {
+  color: #e74c3c;
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+  margin-top: 17px;
+  text-decoration: none;
+}
+
+/* ---------- TOMBOL AKUN ---------- */
+.akun-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #3498db;
+  z-index: 50;
+}
+
+.akun-btn:hover {
+  color: #2072ae;
+  transform: scale(1.1);
+}
+
+/* scale(1.1);
+}
+
+/* ---------- MENU TAB ---------- */
+.tab-menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #ddd;
+}
+
+.tab-item {
+  flex: 1 1 0;
+  padding: 14px 0 8px;
+  background: linear-gradient(90deg, #3498db 60%, #6dd5fa 100%);
+  color: #fff;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: 0.15s;
+}
+
+.tab-item i {
+  font-size: 1.4em;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.tab-item.active, .tab-item:hover {
+  background: linear-gradient(90deg, #2072ae 60%, #6dd5fa 100%);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- KONTEN TAB ---------- */
+.tab-content {
+  background: #f8fafc;
+  border-radius: 9px;
+  padding: 27px 7px;
+  font-size: 1.1em;
+  color: #3498db;
+  font-weight: 600;
+  margin-top: 9px;
+  min-height: 55px;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.05);
+}
+
+/* ---------- RESPONSIF ---------- */
+@media (max-width: 500px) {
+  .container {
+    padding: 16px 5vw;
+  }
+
+  .tab-menu {
+    gap: 5px;
+  }
+
+  .tab-item {
+    font-size: 14px;
+    padding: 12px 0;
+  }
+}

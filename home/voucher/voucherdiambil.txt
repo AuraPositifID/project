@@ -1,0 +1,3 @@
+VOUCHER1|https://link1.com|10000|2025-04-27 08:44:23
+VOUCHER2|https://link2.com|10000|2025-04-27 08:44:37
+VOUCHER2|https://link2.com|10000|2025-04-27 09:53:01

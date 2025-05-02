@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<meta charset="UTF-8">
+<title>Daftar Akun</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;min-height:100vh;font-family:Poppins,sans-serif;background:url(https://g.top4top.io/p_3402rp1b90.jpg?auto=format&fit=crop&w=700&q=80) no-repeat center center fixed;background-size:cover;display:flex;align-items:center;justify-content:center}
+.container{background:rgba(255,255,255,.0.62);padding:32px 28px 24px 28px;border-radius:58px;box-shadow:0 10px 32px rgba(0,0,0,.08),0 1.5px 5px rgba(0,0,0,.03);max-width:610px;width:100%}
+h2{text-align:center;margin-bottom:10px;font-weight:700;color:#223;letter-spacing:1.5px;font-size:2rem}
+.member-signup {text-align:center;margin-bottom:25px;color:#3498db;font-weight:500;font-size:1.17rem;letter-spacing:1px;}
+label{font-weight:500;margin-top:14px;color:#333;display:block}
+input[type=email],input[type=password],input[type=text]{width:100%;padding:10px 12px;margin-top:5px;border:1.5px solid #b5b5b5;border-radius:8px;box-sizing:border-box;font-size:15px;background:#fafaff;transition:border .2s}
+input[type=email]:focus,input[type=password]:focus,input[type=text]:focus{border:1.5px solid #3498db;outline:0}
+.tab-kamera{margin-top:16px}
+.tab-btn{background:#e0e7ff;color:#3549a1;padding:7px 22px;border-radius:7px;border:none;cursor:pointer;font-size:15px;font-weight:500;transition:background .18s;margin-right:8px}
+.tab-btn.active,.tab-btn:hover{background:#b1d3ff}
+#kameraSection{margin-top:10px;display:none;text-align:center}
+#video {
+  width: 170px;
+  height: 170px;
+  background: #ddd;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, .05);
+  transform: scaleX(-1); /* Membalikkan tampilan secara horizontal */
+}
+#preview{width:115px;height:115px;border-radius:50%;object-fit:cover;margin:8px auto 0;display:block;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+#capture{margin-top:10px;background:#4b7bec;color:#fff;border:none;padding:7px 26px;border-radius:7px;font-size:14px;cursor:pointer;font-weight:500}
+button[type=submit]{width:100%;margin-top:18px;padding:11px;background:linear-gradient(90deg,#3498db 60%,#6dd5fa 100%);color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(52,152,219,.1);letter-spacing:1px;transition:background .2s}
+button[type=submit]:hover{background:linear-gradient(90deg,#2072ae 60%,#27a5e3 100%)}
+.notif{text-align:center;color:#fff;background:#27ae60;padding:10px 0;border-radius:7px;margin-bottom:12px;display:none;font-weight:500}
+@media (max-width:500px){.container{padding:17px 5vw}h2{font-size:1.2rem}}
+</style>
+<body>
+<div class="container">
+  <div class="notif" id="notifMsg"></div>
+  <h2>MJB STORE</h2>
+  <div class="member-signup">Member Sign Up</div>
+  <form id="daftarForm" enctype="multipart/form-data" method="post" action="daftar.php" autocomplete="off">
+    <label>Username: <input type="text" name="username" required autocomplete="off"></label>
+    <label>Nama: <input type="text" name="nama" required></label>
+    <label>No HP: <input type="text" name="no_hp" required pattern="[0-9+ ]{8,15}" title="Nomor HP valid"></label>
+    <label>Alamat: <input type="text" name="alamat" required></label>
+    <label>Email: <input type="email" name="email" required></label>
+    <label>Password: <input type="password" name="password" required></label>
+    <div class="tab-kamera">
+      <button type="button" class="tab-btn" id="openKamera">Buka Kamera</button>
+      <button type="button" class="tab-btn" id="closeKamera" style="display:none">Tutup Kamera</button>
+    </div>
+    <div id="kameraSection">
+      <video id="video" autoplay playsinline></video><br>
+      <button type="button" id="capture">Ambil Foto</button>
+    </div>
+    <img id="preview" style="display:none">
+    <input type="hidden" name="foto" id="fotoInput">
+    <button type="submit">Daftar</button>
+  </form>
+  <!-- LINK LOGIN DI BAWAH FORM -->
+  <div style="text-align:center;margin-top:15px;">
+    <span>Sudah punya akun?</span>
+    <a href="login.html" style="color:#3498db;font-weight:600;">Login di sini</a>
+  </div>
+</div>
+<script>
+let openKamera=document.getElementById("openKamera"),
+    closeKamera=document.getElementById("closeKamera"),
+    kameraSection=document.getElementById("kameraSection"),
+    video=document.getElementById("video"),
+    capture=document.getElementById("capture"),
+    preview=document.getElementById("preview"),
+    fotoInput=document.getElementById("fotoInput"),
+    stream=null;
+
+openKamera.onclick=async function(){
+  kameraSection.style.display="block";
+  openKamera.style.display="none";
+  closeKamera.style.display="inline-block";
+  if(!stream) try {
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}});
+    video.srcObject=stream;
+  } catch(e) {
+    alert("Tidak bisa mengakses kamera: "+e.message);
+  }
+};
+closeKamera.onclick=function(){
+  kameraSection.style.display="none";
+  openKamera.style.display="inline-block";
+  closeKamera.style.display="none";
+  if(stream){
+    stream.getTracks().forEach(e=>e.stop());
+    stream=null;
+    video.srcObject=null;
+  }
+};
+capture.onclick = function() {
+  var canvas = document.createElement("canvas");
+  var context = canvas.getContext("2d");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  // Menggambar gambar dari video dengan transformasi
+  context.translate(canvas.width, 0);  // Pindah ke sudut kanan
+  context.scale(-1, 1);  // Membalikkan secara horizontal
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  var imageData = canvas.toDataURL("image/png");
+  preview.src = imageData;
+  preview.style.display = "block";
+  fotoInput.value = imageData;
+
+  // Menutup kamera setelah mengambil foto
+  closeKamera.onclick();
+};
+document.getElementById("daftarForm").onsubmit=function(e){
+  if(!fotoInput.value){
+    alert("Harap ambil foto wajah dulu!");
+    if(openKamera.style.display!=="none") openKamera.focus();
+    e.preventDefault();
+  }
+};
+document.getElementById("daftarForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var formData = new FormData(this);
+  fetch(this.action,{method:"POST",body:formData})
+  .then(res=>res.text())
+  .then(res=>{
+    if(res.toLowerCase().includes("berhasil")){
+      document.getElementById("notifMsg").style.display="block";
+      document.getElementById("notifMsg").style.background="#27ae60";
+      document.getElementById("notifMsg").innerText = "Pendaftaran Berhasil! Mengalihkan ke halaman login...";
+      setTimeout(function(){
+        window.location.href = "login.html";
+      }, 2000);
+    } else {
+      document.getElementById("notifMsg").style.display="block";
+      document.getElementById("notifMsg").style.background="#e74c3c";
+      document.getElementById("notifMsg").innerText = res;
+    }
+  });
+});
+</script>
+</body>
+</html>

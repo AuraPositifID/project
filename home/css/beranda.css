@@ -1,0 +1,193 @@
+/* beranda.css */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    transition: background 0.5s, color 0.5s;
+}
+
+/* Dark Mode */
+body.dark {
+    background: #1c1c1c;
+    color: #eee;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    transition: background 0.5s;
+}
+
+body.dark .navbar {
+    background: rgba(30, 30, 30, 0.9);
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+}
+
+.clock {
+    font-size: 0.9rem;
+}
+
+/* Loader */
+.loader-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #007bff;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Hero */
+.hero {
+    height: 90vh;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-cta {
+    background: white;
+    color: #007bff;
+    padding: 0.7rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Produk Section */
+.produk-section {
+    padding: 4rem 2rem;
+    background: white;
+}
+
+.tab-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.tab {
+    background: #eee;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.tab.active {
+    background: #007bff;
+    color: white;
+}
+
+.produk-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(250px, 1fr);
+    overflow-x: auto;
+    gap: 2rem;
+    padding-bottom: 1rem;
+}
+
+/* Produk Card */
+.produk-card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.produk-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Video Actions */
+.video-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.like-btn, .share-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.like-btn:hover, .share-btn:hover {
+    background: #0056b3;
+}
+
+/* Like Animasi */
+.like-btn:active {
+    transform: scale(1.2);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #f0f0f0;
+    margin-top: 3rem;
+}

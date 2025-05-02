@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paylater ‑ MJB Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Font & Icon eksternal -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
+  <!-- CSS lokal (pakai dashboard.css agar konsisten) -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .paylater-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(52, 152, 219, 0.07);
+      padding: 28px 18px 18px 18px;
+      max-width: 400px;
+      margin: 50px auto 0 auto;
+      text-align: center;
+    }
+    .paylater-section h2 {
+      color: #3498db;
+      margin-bottom: 8px;
+    }
+    .paylater-section input[type="number"],
+    .paylater-section input[type="text"] {
+      width: 85%;
+      padding: 9px 11px;
+      border-radius: 7px;
+      border: 1px solid #bbb;
+      margin: 9px 0;
+      font-size: 1em;
+      font-family: inherit;
+    }
+    .paylater-section button {
+      background: linear-gradient(90deg, #3498db 60%, #6dd5fa 100%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 26px;
+      font-size: 1em;
+      font-weight: 600;
+      margin-top: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px #3498db22;
+      transition: .13s;
+    }
+    .paylater-section button:hover {
+      background: #2072ae;
+    }
+    .voucher-message {
+      margin-top: 9px;
+      color: #e67e22;
+      font-size: 1em;
+    }
+    .voucher-result {
+      margin-top: 22px;
+      font-size: 1.08em;
+    }
+    .voucher-result i {
+      font-size: 2.5em;
+      color: #2ecc71;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+<button class="back-btn" onclick="window.history.back()" title="Kembali">
+  <i class="fa fa-chevron-left"></i>
+</button>
+    <div class="paylater-section">
+      <h2><i class="fa fa-money-bill"></i> Paylater Dana</h2>
+      <form id="paylaterForm" autocomplete="off">
+        <div>
+        </div>
+        <div style="margin-top:15px;">
+          <label>Masukkan kode voucher:</label><br>
+          <input type="text" id="voucherInput" maxlength="32" placeholder="Kode Voucher" required>
+        </div>
+        <button type="submit"><i class="fa fa-bolt"></i> Ambil Saldo</button>
+      </form>
+      <div id="voucherMessage" class="voucher-message"></div>
+      <div id="voucherResult" class="voucher-result"></div>
+    </div>
+  </div>
+
+  <!-- Script voucher handler -->
+  <script>
+    document.getElementById('paylaterForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const kode = document.getElementById('voucherInput').value.trim();
+      const saldo = document.getElementById('paylaterSaldo').value.trim();
+      const msg = document.getElementById('voucherMessage');
+      const res = document.getElementById('voucherResult');
+      msg.textContent = '';
+      res.innerHTML = '';
+
+      // Tampilkan loading
+      res.innerHTML = '<i class="fa fa-spinner fa-spin"></i><br>Memproses...';
+      msg.textContent = '';
+
+      try {
+        const response = await fetch('php/ambil_voucher.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `kode=${encodeURIComponent(kode)}&saldo=${encodeURIComponent(saldo)}`
+        });
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+          setTimeout(() => {
+            res.innerHTML = `
+              <i class="fa fa-gift" title="Klaim Voucher" onclick="window.open('${data.link}','_blank')"></i>
+              <br>
+              <b>Voucher Berhasil!</b><br>
+              <a href="${data.link}" target="_blank" style="color:#3498db;">Klik di sini untuk klaim</a>
+            `;
+            msg.textContent = '';
+          }, 1700); // efek loading
+        } else {
+          res.innerHTML = '';
+          msg.textContent = data.pesan || 'Voucher tidak ditemukan!';
+        }
+      } catch (err) {
+        res.innerHTML = '';
+        msg.textContent = 'Terjadi error koneksi!';
+      }
+    };
+  </script>
+</body>
+</html>
